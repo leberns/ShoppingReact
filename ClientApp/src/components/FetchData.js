@@ -1,20 +1,36 @@
-import React, { Component } from 'react';
+import { useEffect, useState } from 'react';
 
-export class FetchData extends Component {
-  static displayName = FetchData.name;
+const FetchData = () => {
 
-  constructor(props) {
-    super(props);
-    this.state = { forecasts: [], loading: true };
-  }
+  const [loading, setLoading] = useState(true);
+  const [forecasts, setForecasts] = useState([]);
+  const [error, setError] = useState(null);
 
-  componentDidMount() {
-    this.populateWeatherData();
-  }
+  useEffect(() => {
+    let unmounted = false;
 
-  static renderForecastsTable(forecasts) {
+    (async () => {
+      try {
+        const response = await fetch('weatherforecast');
+        const data = await response.json();
+        if (unmounted) {
+          return;
+        }
+        setForecasts(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err);
+      }
+    })();
+
+    return function cleanup() {
+      unmounted = true
+    };
+  }, []);
+
+  function renderForecastsTable(forecasts) {
     return (
-      <table className='table table-striped' aria-labelledby="tabelLabel">
+      <table aria-labelledby="tabelLabel">
         <thead>
           <tr>
             <th>Date</th>
@@ -37,23 +53,25 @@ export class FetchData extends Component {
     );
   }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : FetchData.renderForecastsTable(this.state.forecasts);
-
+  if (error) {
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
+        {error}
       </div>
     );
   }
 
-  async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
-  }
+  let contents = loading
+    ? <p><em>Loading with Hooks...</em></p>
+    : renderForecastsTable(forecasts);
+
+  return (
+    <div>
+      <h1 id="tabelLabel" >Weather forecast</h1>
+      <p>This component demonstrates fetching data from the server.</p>
+      {contents}
+    </div>
+  );
 }
+
+export { FetchData };
