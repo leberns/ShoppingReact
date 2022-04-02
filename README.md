@@ -18,18 +18,20 @@ Update to Rect 18 (lastest)
 
 ```
 cd C:\Dev\GitHub\leberns\ShoppingReact\ClientApp\
+
 npm install --save react@latest react-dom@latest
 npm install --save react-router-bootstrap@latest react-router-dom@latest react-scripts@latest reactstrap@latest
 npm install --save rimraf@latest
+
+npm install --save-dev ajv@latest
+npm install --save-dev cross-env@latest
+npm install --save-dev eslint@latest eslint-config-react-app@latest eslint-plugin-flowtype@latest eslint-plugin-import@latest eslint-plugin-jsx-a11y@latest eslint-plugin-react@latest
+npm install --save-dev nan@latest
+npm install --save-dev typescript@latest
+
 ```
 
 ## Development
-
-### Production Build
-```
-cd C:\Dev\GitHub\leberns\ShoppingReact\ClientApp\
-npm run-script build
-```
 
 ### Debugging
 ```
@@ -40,4 +42,10 @@ dotnet run
 * Open browser according to the message in console:
 ```
 Now listening on: https://localhost:7213
+```
+
+### Production Build
+```
+cd C:\Dev\GitHub\leberns\ShoppingReact\ClientApp\
+npm run-script build
 ```
