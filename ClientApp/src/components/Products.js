@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-const FetchData = () => {
+const Products = () => {
 
   const [loading, setLoading] = useState(true);
-  const [forecasts, setForecasts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -11,12 +11,12 @@ const FetchData = () => {
 
     (async () => {
       try {
-        const response = await fetch('api/weatherforecast');
+        const response = await fetch('api/product/GetProducts');
         const data = await response.json();
         if (unmounted) {
           return;
         }
-        setForecasts(data);
+        setProducts(data);
         setLoading(false);
       } catch (err) {
         setError(err);
@@ -28,24 +28,20 @@ const FetchData = () => {
     };
   }, []);
 
-  function renderForecastsTable(forecasts) {
+  function renderProducts(products) {
     return (
       <table aria-labelledby="tabelLabel">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Name</th>
+            <th>Category</th>
           </tr>
         </thead>
         <tbody>
-          {forecasts.map(forecast =>
-            <tr key={forecast.date}>
-              <td>{forecast.date}</td>
-              <td>{forecast.temperatureC}</td>
-              <td>{forecast.temperatureF}</td>
-              <td>{forecast.summary}</td>
+          {products.map(product =>
+            <tr key={product.id}>
+              <td>{product.name}</td>
+              <td>{product.category}</td>
             </tr>
           )}
         </tbody>
@@ -63,15 +59,14 @@ const FetchData = () => {
 
   let contents = loading
     ? <p><em>Loading with Hooks...</em></p>
-    : renderForecastsTable(forecasts);
+    : renderProducts(products);
 
   return (
     <div>
-      <h1 id="tabelLabel" >Weather forecast</h1>
-      <p>This component demonstrates fetching data from the server.</p>
+      <h1 id="tabelLabel" >Products</h1>
       {contents}
     </div>
   );
 }
 
-export { FetchData };
+export { Products };

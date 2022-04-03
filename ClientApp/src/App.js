@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Routes, Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
+import { Products } from './components/Products';
 import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 
@@ -15,6 +16,7 @@ export default class App extends Component {
       <Layout>
         <Routes>
           <Route exact path='/' element={<Home />} />
+          <Route path='/products' element={<Products />} />
           <Route path='/counter' element={<Counter />} />
           <Route path='/fetch-data' element={<FetchData />} />
         </Routes>

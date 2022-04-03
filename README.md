@@ -28,7 +28,12 @@ npm install --save-dev cross-env@latest
 npm install --save-dev eslint@latest eslint-config-react-app@latest eslint-plugin-flowtype@latest eslint-plugin-import@latest eslint-plugin-jsx-a11y@latest eslint-plugin-react@latest
 npm install --save-dev nan@latest
 npm install --save-dev typescript@latest
+```
 
+Add TypeScript
+```
+npm install --save-dev typescript @types/node @types/react @types/react-dom @types/jest
+npm install --save-dev @types/react-router-dom
 ```
 
 ## Development
