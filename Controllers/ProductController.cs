@@ -18,6 +18,7 @@ public class ProductController : ControllerBase
     _productService = productService;
   }
 
+  // https://localhost:44400/api/product/GetProducts
   [HttpGet, ActionName("GetProducts")]
   public IList<Product> GetProducts()
   {
@@ -32,5 +33,23 @@ public class ProductController : ControllerBase
     var products = _productService.GetProducts();
     var product = products.First(p => p.Id == id);
     return product;
+  }
+
+  // https://localhost:44400/api/product/GetProductSpecific/1/Soap
+  [HttpGet("{id}/{name}")]
+  public Product GetProductSpecific(int id, string name)
+  {
+    var products = _productService.GetProducts();
+    var product = products.First(p => p.Id == id && p.Name == name);
+    return product;
+  }
+
+  // https://localhost:44400/api/product/Search/soap
+  [HttpGet("{term}")]
+  public IList<Product> Search(string term)
+  {
+    var products = _productService.GetProducts();
+    var matches = products.Where(p => p.Name.Contains(term, StringComparison.InvariantCultureIgnoreCase)).ToList();
+    return matches;
   }
 }

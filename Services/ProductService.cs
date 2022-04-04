@@ -31,6 +31,42 @@ public class ProductService : IProductService
       Price = 5m
     });
 
+    products.Add(new Product
+    {
+      Id = 3,
+      Name = "Broom",
+      Category = "Cleaning",
+      Currency = "CHF",
+      Price = 7.9m
+    });
+
+    products.Add(new Product
+    {
+      Id = 4,
+      Name = "Glass cleaner",
+      Category = "Cleaning",
+      Currency = "CHF",
+      Price = 6
+    });
+
+    products.Add(new Product
+    {
+      Id = 5,
+      Name = "Wood cleaner",
+      Category = "Cleaning",
+      Currency = "CHF",
+      Price = 9
+    });
+
+    products.Add(new Product
+    {
+      Id = 6,
+      Name = "Dish soap",
+      Category = "Cleaning",
+      Currency = "CHF",
+      Price = 2.95m
+    });
+
     return products;
   }
 }
