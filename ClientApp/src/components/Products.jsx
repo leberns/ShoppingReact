@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Loader } from './Loader';
 
-const Products = () => {
+const Products = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -11,7 +12,9 @@ const Products = () => {
 
     (async () => {
       try {
-        const response = await fetch('api/product/GetProducts');
+        const filter = props.filter;
+        const searchUrl = filter ? 'api/product/Search/' + filter : 'api/product/GetProducts';
+        const response = await fetch(searchUrl);
         const data = await response.json();
         if (unmounted) {
           return;
@@ -26,7 +29,7 @@ const Products = () => {
     return function cleanup() {
       unmounted = true
     };
-  }, []);
+  }, [props.filter]);
 
   function renderProducts(products) {
     return (
@@ -58,12 +61,11 @@ const Products = () => {
   }
 
   let contents = loading
-    ? <p><em>Loading with Hooks...</em></p>
+    ? <Loader />
     : renderProducts(products);
 
   return (
     <div>
-      <h1 id="tabelLabel" >Products</h1>
       {contents}
     </div>
   );

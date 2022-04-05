@@ -48,8 +48,7 @@ public class ProductController : ControllerBase
   [HttpGet("{term}")]
   public IList<Product> Search(string term)
   {
-    var products = _productService.GetProducts();
-    var matches = products.Where(p => p.Name.Contains(term, StringComparison.InvariantCultureIgnoreCase)).ToList();
-    return matches;
+    var products = _productService.Search(term);
+    return products;
   }
 }

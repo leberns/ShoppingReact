@@ -5,6 +5,7 @@ namespace ShoppingReact.Services;
 public interface IProductService
 {
   IList<Product> GetProducts();
+  IList<Product> Search(string term);
 }
 
 public class ProductService : IProductService
@@ -68,5 +69,12 @@ public class ProductService : IProductService
     });
 
     return products;
+  }
+
+  public IList<Product> Search(string term)
+  {
+    var products = GetProducts();
+    var matches = products.Where(p => p.Name.Contains(term, StringComparison.InvariantCultureIgnoreCase)).ToList();
+    return matches;
   }
 }
