@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FilterInput } from './FilterInput';
-import { Products } from './Products';
+import { ProductsProvider } from './ProductsProvider';
 
 const ProductsWrapper = () => {
 
@@ -14,7 +14,7 @@ const ProductsWrapper = () => {
     <>
       <h1 id="tabelLabel" >Products</h1>
       <FilterInput onFilterChanged={onFilterChanged} filter={filter} />
-      <Products filter={filter} />
+      <ProductsProvider filter={filter} />
     </>
   );
 }

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Loader } from './Loader';
+import { ProductsViewer } from './ProductsViewer';
 
-const Products = (props) => {
+const ProductsProvider = (props) => {
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -31,27 +32,6 @@ const Products = (props) => {
     };
   }, [props.filter]);
 
-  function renderProducts(products) {
-    return (
-      <table aria-labelledby="tabelLabel">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product =>
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.category}</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    );
-  }
-
   if (error) {
     return (
       <div>
@@ -62,7 +42,7 @@ const Products = (props) => {
 
   let contents = loading
     ? <Loader />
-    : renderProducts(products);
+    : <ProductsViewer items={products} />;
 
   return (
     <div>
@@ -71,4 +51,4 @@ const Products = (props) => {
   );
 }
 
-export { Products };
+export { ProductsProvider };
